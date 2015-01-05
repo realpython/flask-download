@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+  <div class="jumbotron">
+    <h1>Welcome to Flask Download!</h1>
+    <p class="lead">Sell a digital download.</p>
+    <br>
+    {% if products %}
+      <h2>Products</h2>
+      <br>
+      <ul>
+        {% for product in products %}
+          <li>{{ product.id }}</li>
+          <li>{{ product.name }}</li>
+          <li>{{ product.file_name }}</li>
+          <li>{{ product.version }}</li>
+          <li>{{ product.is_active }}</li>
+          <li>{{ product.price }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <h2>
+        {% if current_user.is_authenticated() %}
+          <span>There's nothing for sale. <a href="{{ url_for('product.add_product') }}">Add a product</a>.</span>
+        {% else %}
+          <span> Sorry. Nothing for sale at the moment.</span>
+        {% endif %}
+      </h2>
+    {% endif %}
+  </div>
+
+{% endblock %}

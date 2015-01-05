@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<h1>Admin Section</h1>
+
+<br>
+
+<h2>Tasks</h2>
+
+<ul>
+  <li><a href="{{ url_for('product.add_product') }}">Add a Product</a></li>
+  <li><a href="{{ url_for('product.add_product') }}">View Sales</a></li>
+</ul>
+
+{% endblock %}
