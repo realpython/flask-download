@@ -1,4 +1,4 @@
-# tests/test_helpers.py
+# tests/test_product.py
 
 
 import unittest
@@ -6,8 +6,7 @@ import unittest
 from base import BaseTestCase
 
 
-class TestHelpers(BaseTestCase):
-
+class TestProductBlueprint(BaseTestCase):
     pass
 
 

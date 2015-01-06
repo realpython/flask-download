@@ -2,32 +2,18 @@
 
 {% block content %}
 
-  <div class="jumbotron">
+  <div id="main-wrapper">
     <h1>Welcome to Flask Download!</h1>
-    <p class="lead">Sell a digital download.</p>
-    <br>
-    {% if products %}
-      <h2>Products</h2>
-      <br>
-      <ul>
-        {% for product in products %}
-          <li>{{ product.id }}</li>
-          <li>{{ product.name }}</li>
-          <li>{{ product.file_name }}</li>
-          <li>{{ product.version }}</li>
-          <li>{{ product.is_active }}</li>
-          <li>{{ product.price }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <h2>
-        {% if current_user.is_authenticated() %}
-          <span>There's nothing for sale. <a href="{{ url_for('product.add_product') }}">Add a product</a>.</span>
-        {% else %}
-          <span> Sorry. Nothing for sale at the moment.</span>
-        {% endif %}
-      </h2>
-    {% endif %}
+    <h1 class="lead">Sell a digital download.<br><br><span class="glyphicon glyphicon-cloud-download"></span></h1>
+    <form action="{{ url_for('product.purchase') }}" method="POST">
+      <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="{{ config.STRIPE_PUBLISHABLE_KEY }}"
+        data-amount="{{ config.PRODUCT_AMOUNT }}"
+        data-name="{{ config.PRODUCT_NAME }}"
+        data-description="{{ config.PRODUCT_DESCRIPTION }}">
+      </script>
+    </form>
   </div>
 
 {% endblock %}

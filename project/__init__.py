@@ -19,7 +19,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 #### config ####
 ################
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.config.from_object(os.environ['APP_SETTINGS'])
 
 stripe_keys = {

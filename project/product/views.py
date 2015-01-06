@@ -5,13 +5,13 @@
 #### imports ####
 #################
 
-# import stripe
+import stripe
 
-from flask import render_template, Blueprint, request, flash
+from flask import render_template, Blueprint, \
+    request, abort, send_from_directory
 
-from forms import ProductForm
-from project import db
-from project.models import Product
+from project import app, db
+from project.models import Purchase
 
 
 ################
@@ -26,17 +26,42 @@ product_blueprint = Blueprint('product', __name__,)
 ################
 
 
-@product_blueprint.route('/add', methods=['GET', 'POST'])
-def add_product():
-    form = ProductForm(request.form)
-    if form.validate_on_submit():
-        product = Product(
-            name=form.name.data,
-            version=form.version.data,
-            price=form.price.data
-        )
-        db.session.add(product)
-        db.session.commit()
-        flash('Product added!', 'success')
+@product_blueprint.route('/purchase', methods=['POST'])
+def purchase():
+    product_price = app.config['PRODUCT_AMOUNT']
+    product_currency = app.config['PRODUCT_CURRENCY']
+    stripe_token = request.form['stripeToken']
+    email = request.form['stripeEmail']
 
-    return render_template('product/add.html', form=form)
+    try:
+        stripe.Charge.create(
+            amount=product_price,
+            currency=product_currency,
+            card=stripe_token,
+            description=email)
+    except stripe.CardError:
+        return render_template('product/charge_error.html')
+
+    purchase = Purchase(email=email)
+    db.session.add(purchase)
+    db.session.commit()
+
+    return render_template('product/success.html', url=str(purchase.id))
+
+
+@product_blueprint.route('/<purchase_id>')
+def download(purchase_id):
+    purchase = Purchase.query.filter_by(id=purchase_id).first()
+    if purchase:
+        purchase.downloads_left -= 1
+        if purchase.downloads_left < 1:
+            db.session.commit()
+            return render_template('product/exceeded.html')
+        db.session.commit()
+        return send_from_directory(
+            directory=app.static_folder,
+            filename='foo.bar',
+            as_attachment=True
+        )
+    else:
+        abort(404)

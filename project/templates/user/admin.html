@@ -6,11 +6,10 @@
 
 <br>
 
-<h2>Tasks</h2>
+<div id="sales-wrapper">
+  <h2>Total Sales</h2>
+  <div class="well">${{ total_sales }}</div>
+</div>
 
-<ul>
-  <li><a href="{{ url_for('product.add_product') }}">Add a Product</a></li>
-  <li><a href="{{ url_for('product.add_product') }}">View Sales</a></li>
-</ul>
 
 {% endblock %}

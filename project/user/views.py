@@ -12,8 +12,8 @@ from flask import render_template, Blueprint, url_for, \
 from flask.ext.login import login_user, logout_user, \
     login_required
 
-from project import bcrypt, stripe_keys
-from project.models import User
+from project import app, bcrypt, stripe_keys
+from project.models import User, Purchase
 from project.user.forms import LoginForm
 
 ################
@@ -49,11 +49,13 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('You are logged out. Bye!', 'success')
+    flash('You were logged out. Bye!', 'success')
     return redirect(url_for('main.home'))
 
 
 @user_blueprint.route('/admin')
 @login_required
 def admin():
-    return render_template('user/admin.html')
+    purchases = Purchase.query.all()
+    total_sales = len(purchases) * (int(app.config['PRODUCT_AMOUNT']) / 100)
+    return render_template('user/admin.html', total_sales=total_sales)
