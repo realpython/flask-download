@@ -1,4 +1,4 @@
-# project/users/views.py
+# project/user/views.py
 
 
 #################

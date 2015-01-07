@@ -1,4 +1,4 @@
-# project/users/forms.py
+# project/user/forms.py
 
 
 from flask_wtf import Form

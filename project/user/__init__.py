@@ -1,1 +1,1 @@
-# project/users/__init__.py
+# project/user/__init__.py
