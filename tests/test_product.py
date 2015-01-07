@@ -8,10 +8,12 @@ from base import BaseTestCase
 
 class TestProductBlueprint(BaseTestCase):
 
-    def test_product(self):
-        # Ensure Flask is setup.
-        response = self.client.get('/purchase', content_type='html/text')
-        self.assertEqual(response.status_code, 200)
+    pass
+
+    # def test_product(self):
+    #     # Ensure Flask is setup.
+    #     response = self.client.get('/purchase', content_type='html/text')
+    #     self.assertEqual(response.status_code, 200)
 
 
 if __name__ == '__main__':
