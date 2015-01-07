@@ -5,14 +5,14 @@
 #### imports ####
 #################
 
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint  # pragma: no cover
 
 
 ################
 #### config ####
 ################
 
-main_blueprint = Blueprint('main', __name__,)
+main_blueprint = Blueprint('main', __name__,)  # pragma: no cover
 
 
 ################
@@ -20,6 +20,6 @@ main_blueprint = Blueprint('main', __name__,)
 ################
 
 
-@main_blueprint.route('/')
+@main_blueprint.route('/')  # pragma: no cover
 def home():
     return render_template('main/home.html')
