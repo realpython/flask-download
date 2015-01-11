@@ -5,20 +5,20 @@
 #### imports ####
 #################
 
-import stripe
+import stripe  # pragma: no cover
 
 from flask import render_template, Blueprint, \
-    request, abort, send_from_directory
+    request, abort, send_from_directory  # pragma: no cover
 
-from project import app, db
-from project.models import Purchase
+from project import app, db  # pragma: no cover
+from project.models import Purchase  # pragma: no cover
 
 
 ################
 #### config ####
 ################
 
-product_blueprint = Blueprint('product', __name__,)
+product_blueprint = Blueprint('product', __name__,)  # pragma: no cover
 
 
 ################
@@ -31,7 +31,6 @@ def purchase():
     product_price = app.config['PRODUCT_AMOUNT']
     product_currency = app.config['PRODUCT_CURRENCY']
     stripe_token = request.form['stripeToken']
-    print stripe_token
     email = request.form['stripeEmail']
 
     try:
@@ -50,7 +49,7 @@ def purchase():
     return render_template('product/success.html', url=str(purchase.id))
 
 
-@product_blueprint.route('/<purchase_id>')
+@product_blueprint.route('/<purchase_id>')  # pragma: no cover
 def download(purchase_id):
     purchase = Purchase.query.filter_by(id=purchase_id).first()
     if purchase:

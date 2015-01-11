@@ -1,7 +1,5 @@
 WIP
 
-currently working on - testing product
-
 # Flask Download
 
 Sell a digital download.
