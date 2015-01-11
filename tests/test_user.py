@@ -1,4 +1,4 @@
-# tests/test_users.py
+# tests/test_user.py
 
 
 import datetime
@@ -12,7 +12,7 @@ from project.models import User
 from project.user.forms import LoginForm
 
 
-class TestUsersBlueprint(BaseTestCase):
+class TestUserBlueprint(BaseTestCase):
 
     def test_correct_login(self):
         # Ensure login behaves correctly with correct credentials

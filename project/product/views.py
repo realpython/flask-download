@@ -31,6 +31,7 @@ def purchase():
     product_price = app.config['PRODUCT_AMOUNT']
     product_currency = app.config['PRODUCT_CURRENCY']
     stripe_token = request.form['stripeToken']
+    print stripe_token
     email = request.form['stripeEmail']
 
     try:

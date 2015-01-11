@@ -6,7 +6,7 @@ import unittest
 from base import BaseTestCase
 
 
-class TestMainViewsBlueprint(BaseTestCase):
+class TestMainBlueprint(BaseTestCase):
 
     def test_index(self):
         # Ensure Flask is setup.
